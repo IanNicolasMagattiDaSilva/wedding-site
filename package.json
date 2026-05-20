@@ -1,0 +1,12 @@
+{
+  "name": "wedding_site",
+  "version": "1.0.0",
+  "description": "is a wedding site",
+  "main": "index",
+  "repository": "git@github.com:IanNicolasMagattiDaSilva/wedding-site.git",
+  "author": "Ian Nicolas Magatti <nicolas.magatti@layers.education>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20.11.0"
+  }
+}
