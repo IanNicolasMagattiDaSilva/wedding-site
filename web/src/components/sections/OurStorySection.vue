@@ -1,29 +1,25 @@
 <template>
-  <section class="py-28 bg-ivory">
-    <div class="max-w-2xl mx-auto px-6">
-      <div class="text-center mb-20">
-        <p class="uppercase tracking-[0.35em] text-xs text-stone mb-4">Nossa história</p>
-        <div class="w-8 h-px bg-gold mx-auto" />
+  <section class="block" id="historia">
+    <div class="wrap">
+      <div class="block-head reveal" ref="headRef">
+        <div class="eyebrow">Capítulo Primeiro</div>
+        <h2 class="section-title">Nossa <em>história</em>, em poucas palavras.</h2>
       </div>
 
-      <div class="relative">
-        <div class="absolute left-1/2 -translate-x-px top-0 bottom-0 w-px bg-gold/25" />
-
-        <div
-          v-for="(item, index) in wedding.story"
-          :key="item.year"
-          class="relative flex gap-10 mb-16 last:mb-0"
-          :class="index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'"
-        >
-          <div class="w-1/2" :class="index % 2 === 0 ? 'text-right pr-10' : 'text-left pl-10'">
-            <p class="font-serif italic text-gold text-xl mb-2">{{ item.year }}</p>
-            <h3 class="font-serif font-light text-charcoal text-xl mb-3">{{ item.title }}</h3>
-            <p class="text-stone text-sm leading-relaxed">{{ item.text }}</p>
-          </div>
-
-          <div class="absolute left-1/2 -translate-x-1/2 top-1 w-2.5 h-2.5 rounded-full border border-gold bg-ivory" />
-
-          <div class="w-1/2" />
+      <div class="story reveal" ref="storyRef">
+        <div class="story-img">
+          <div class="frame-num">FIG. 01 — 2022</div>
+        </div>
+        <div class="story-text">
+          <div class="eyebrow">Como começou</div>
+          <h3>Um <em>encontro</em> que durou anos.</h3>
+          <p>
+            A gente se conheceu no inverno de 2022, numa daquelas noites em que São Paulo parece interior — calma demais, frio demais para um sábado. O Ian apareceu de jaqueta emprestada. A Victoria, com um livro debaixo do braço que ele fingiu já ter lido.
+          </p>
+          <p>
+            Vieram as conversas longas, as viagens curtas, os planos sussurrados em cozinhas alheias. Cinco anos depois, decidimos que era hora — e queremos que vocês estejam por perto quando a gente disser sim.
+          </p>
+          <div class="story-sig">&amp;</div>
         </div>
       </div>
     </div>
@@ -31,5 +27,8 @@
 </template>
 
 <script setup>
-import { wedding } from '@/config/wedding.js'
+import { useReveal } from '@/composables/useReveal.js'
+
+const headRef = useReveal()
+const storyRef = useReveal()
 </script>

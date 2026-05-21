@@ -1,96 +1,99 @@
 <template>
-  <section class="py-28 bg-gold-light">
-    <div class="max-w-md mx-auto px-6">
-      <div class="text-center mb-16">
-        <p class="uppercase tracking-[0.35em] text-xs text-stone mb-4">Confirmação</p>
-        <div class="w-8 h-px bg-gold mx-auto mb-8" />
-        <h2 class="font-serif font-light text-charcoal text-3xl">Você vai?</h2>
-        <p class="text-stone text-sm mt-4 leading-relaxed">
-          Confirme sua presença até <span class="text-charcoal">01 de Outubro de 2026</span>.
-        </p>
-      </div>
+  <section
+    class="block"
+    id="rsvp"
+    style="background: var(--paper); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);"
+  >
+    <div class="wrap">
+      <div class="rsvp reveal" ref="el">
+        <template v-if="!sent">
+          <div class="eyebrow">Confirme presença</div>
+          <h2>Esperamos por <em>você</em>.</h2>
+          <p class="intro">Por favor, confirme até 30 de setembro de 2027 — precisamos contar com vocês para o jantar.</p>
 
-      <form v-if="!submitted" @submit.prevent="handleSubmit" class="space-y-5">
-        <div>
-          <label class="block uppercase tracking-[0.2em] text-[11px] text-stone mb-2">Nome completo</label>
-          <input
-            v-model="form.name"
-            type="text"
-            required
-            placeholder="Seu nome"
-            class="w-full bg-ivory border-b border-gold/40 py-3 text-sm text-charcoal placeholder:text-stone/50 focus:outline-none focus:border-gold transition-colors"
-          />
+          <form class="rsvp-form" @submit.prevent="submit">
+            <div class="field">
+              <label for="rsvp-name">Como devemos te chamar?</label>
+              <input id="rsvp-name" type="text" placeholder="Seu nome completo" v-model="name" required />
+            </div>
+
+            <div class="field">
+              <label>Você poderá ir?</label>
+              <div class="choice-row">
+                <button
+                  type="button"
+                  :class="['choice', attending === true ? 'is-active' : '']"
+                  @click="attending = true"
+                >
+                  Sim, <em>com alegria</em>
+                </button>
+                <button
+                  type="button"
+                  :class="['choice', attending === false ? 'is-active' : '']"
+                  @click="attending = false"
+                >
+                  Infelizmente, <em>não</em>
+                </button>
+              </div>
+            </div>
+
+            <div v-if="attending === true" class="field">
+              <label>Vai levar acompanhante?</label>
+              <div class="choice-row">
+                <button
+                  type="button"
+                  :class="['choice', plusOne === true ? 'is-active' : '']"
+                  @click="plusOne = true"
+                >
+                  Sim, <em>+1</em>
+                </button>
+                <button
+                  type="button"
+                  :class="['choice', plusOne === false ? 'is-active' : '']"
+                  @click="plusOne = false"
+                >
+                  Vou <em>sozinho(a)</em>
+                </button>
+              </div>
+            </div>
+
+            <button class="submit" type="submit">
+              Enviar confirmação <span class="arrow">→</span>
+            </button>
+          </form>
+        </template>
+
+        <div v-else class="rsvp-success">
+          <div class="eyebrow">Recebemos sua resposta</div>
+          <h3 style="margin-top: 24px">Obrigado, <em>{{ firstName }}</em>.</h3>
+          <p>
+            {{
+              attending
+                ? 'Que alegria saber que você estará lá. Em breve enviamos os detalhes do dia por e-mail.'
+                : 'Vamos sentir sua falta — mas obrigado por avisar. Contaremos tudo depois, com fotos.'
+            }}
+          </p>
         </div>
-
-        <div>
-          <label class="block uppercase tracking-[0.2em] text-[11px] text-stone mb-2">Acompanhantes</label>
-          <input
-            v-model="form.guests"
-            type="number"
-            min="0"
-            max="5"
-            placeholder="0"
-            class="w-full bg-ivory border-b border-gold/40 py-3 text-sm text-charcoal placeholder:text-stone/50 focus:outline-none focus:border-gold transition-colors"
-          />
-        </div>
-
-        <div class="flex gap-4 pt-2">
-          <label
-            v-for="option in attendanceOptions"
-            :key="option.value"
-            class="flex items-center gap-2 cursor-pointer text-sm text-stone select-none"
-          >
-            <input
-              v-model="form.attending"
-              type="radio"
-              :value="option.value"
-              class="accent-gold"
-            />
-            {{ option.label }}
-          </label>
-        </div>
-
-        <button
-          type="submit"
-          class="w-full mt-6 py-4 uppercase tracking-[0.25em] text-xs text-ivory bg-charcoal hover:bg-gold transition-colors"
-        >
-          Confirmar presença
-        </button>
-      </form>
-
-      <div v-else class="text-center py-8">
-        <div class="w-8 h-px bg-gold mx-auto mb-8" />
-        <p class="font-serif font-light text-charcoal text-2xl mb-3">
-          {{ form.attending ? 'Até lá!' : 'Sentiremos sua falta.' }}
-        </p>
-        <p class="text-stone text-sm">
-          {{ form.attending
-            ? 'Obrigado pela confirmação. Mal podemos esperar para celebrar com você!'
-            : 'Obrigado por nos avisar.' }}
-        </p>
       </div>
     </div>
   </section>
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref, computed } from 'vue'
+import { useReveal } from '@/composables/useReveal.js'
 
-const submitted = ref(false)
+const el = useReveal()
+const name = ref('')
+const attending = ref(null)
+const plusOne = ref(null)
+const sent = ref(false)
 
-const form = reactive({
-  name: '',
-  guests: 0,
-  attending: true,
-})
+const firstName = computed(() => name.value.split(' ')[0])
 
-const attendanceOptions = [
-  { value: true, label: 'Vou comparecer' },
-  { value: false, label: 'Não poderei ir' },
-]
-
-function handleSubmit() {
-  // TODO: enviar dados para o backend
-  submitted.value = true
+function submit() {
+  if (!name.value.trim() || attending.value === null) return
+  if (attending.value && plusOne.value === null) return
+  sent.value = true
 }
 </script>

@@ -1,35 +1,43 @@
 <template>
-  <section class="py-28 bg-ivory">
-    <div class="max-w-2xl mx-auto px-6">
-      <div class="text-center mb-16">
-        <p class="uppercase tracking-[0.35em] text-xs text-stone mb-4">Presentes</p>
-        <div class="w-8 h-px bg-gold mx-auto mb-8" />
-        <h2 class="font-serif font-light text-charcoal text-3xl">Lista de presentes</h2>
-        <p class="text-stone text-sm mt-4 leading-relaxed max-w-xs mx-auto">
-          Sua presença já é o maior presente. Mas se quiser nos presentear, escolha com carinho.
-        </p>
+  <section class="block" id="presentes">
+    <div class="wrap-narrow">
+      <div class="block-head reveal" ref="headRef">
+        <div class="eyebrow">Se quiserem nos presentear</div>
+        <h2 class="section-title">Uma lista <em>pensada</em>.</h2>
+        <p class="lede">A presença de vocês já é o que importa. Mas, se fizer sentido, aqui está uma lista do que sonhamos para o que vem depois.</p>
       </div>
 
-      <div class="grid sm:grid-cols-2 gap-6">
-        <a
-          v-for="gift in wedding.gifts"
-          :key="gift.name"
-          :href="gift.url"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="group border border-gold/20 p-8 text-center hover:border-gold/50 hover:bg-gold-light transition-all"
-        >
-          <p class="font-serif font-light text-charcoal text-lg mb-2 group-hover:text-gold transition-colors">
-            {{ gift.name }}
-          </p>
-          <p class="text-stone text-xs tracking-wide">{{ gift.description }}</p>
-          <div class="w-4 h-px bg-gold mx-auto mt-5 group-hover:w-8 transition-all" />
-        </a>
+      <div class="gifts reveal" ref="giftsRef">
+        <div v-for="gift in gifts" :key="gift.num" class="gift">
+          <div class="num">{{ gift.num }}</div>
+          <div class="name">{{ gift.name }}</div>
+          <div class="desc">{{ gift.desc }}</div>
+          <div class="price">
+            {{ gift.price }}
+            <small>{{ gift.note }}</small>
+          </div>
+        </div>
       </div>
+
+      <p class="gifts-foot">
+        Para contribuir, escreva para <a href="mailto:ianevictoria@email.com">ianevictoria@email.com</a> — enviamos os dados do Pix e a confirmação da cota.
+      </p>
     </div>
   </section>
 </template>
 
 <script setup>
-import { wedding } from '@/config/wedding.js'
+import { useReveal } from '@/composables/useReveal.js'
+
+const headRef = useReveal()
+const giftsRef = useReveal()
+
+const gifts = [
+  { num: '01', name: 'Lua de mel · Lisboa', desc: 'Sete noites em Alfama, com vista para o Tejo', price: 'R$ 1.480', note: 'Cota livre' },
+  { num: '02', name: 'Jantar em Sintra', desc: 'Uma noite e jantar de degustação a dois', price: 'R$ 720', note: '1 disponível' },
+  { num: '03', name: 'Jogo de panelas', desc: 'Para os nossos próximos anos de cozinha juntos', price: 'R$ 980', note: '1 disponível' },
+  { num: '04', name: 'Estante de marcenaria', desc: 'Para receber os livros que ainda vamos comprar', price: 'R$ 2.400', note: '1 disponível' },
+  { num: '05', name: 'Aula de cerâmica', desc: 'Curso de fim de semana, porque sempre quisemos', price: 'R$ 420', note: 'Cota livre' },
+  { num: '06', name: 'Pix · contribuição livre', desc: 'Qualquer valor, com carinho', price: 'Qualquer valor', note: 'Aberto' },
+]
 </script>

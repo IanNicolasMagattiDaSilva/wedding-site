@@ -1,31 +1,56 @@
 <template>
-  <section class="py-28 bg-ivory">
-    <div class="max-w-3xl mx-auto px-6">
-      <div class="text-center mb-20">
-        <p class="uppercase tracking-[0.35em] text-xs text-stone mb-4">Locais</p>
-        <div class="w-8 h-px bg-gold mx-auto" />
+  <section class="block" id="local">
+    <div class="wrap">
+      <div class="block-head reveal" ref="headRef">
+        <div class="eyebrow">Onde celebraremos</div>
+        <h2 class="section-title">O <em>encontro</em>.</h2>
       </div>
 
-      <div class="grid md:grid-cols-2 gap-8">
-        <div
-          v-for="venue in venues"
-          :key="venue.label"
-          class="border border-gold/20 p-10 text-center"
-        >
-          <p class="uppercase tracking-[0.3em] text-xs text-gold mb-6">{{ venue.label }}</p>
-          <h3 class="font-serif font-light text-charcoal text-xl mb-4 leading-snug">
-            {{ venue.name }}
-          </h3>
-          <div class="w-6 h-px bg-gold/40 mx-auto mb-4" />
-          <p class="text-stone text-sm leading-relaxed mb-2">{{ venue.address }}</p>
-          <p class="font-serif italic text-gold text-sm mb-6">{{ venue.time }}</p>
-          <a
-            :href="venue.mapsUrl"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-block uppercase tracking-[0.2em] text-[11px] text-charcoal border-b border-charcoal/30 pb-px hover:border-gold hover:text-gold transition-colors"
-          >
-            Ver no mapa
+      <div class="venue reveal" ref="venueRef">
+        <div class="venue-image">
+          <div class="caption">Casa Florença, Jardim Europa</div>
+        </div>
+        <div class="venue-info">
+          <h3 class="v-name">Casa <em>Florença</em></h3>
+          <div class="v-table">
+            <div class="row">
+              <div class="k">Endereço</div>
+              <div class="v">
+                Rua Cônego Eugênio Leite, 920
+                <small>Pinheiros · São Paulo, SP · 05414-001</small>
+              </div>
+            </div>
+            <div class="row">
+              <div class="k">Cerimônia</div>
+              <div class="v">
+                16h00
+                <small>Pedimos chegada com 30 minutos de antecedência.</small>
+              </div>
+            </div>
+            <div class="row">
+              <div class="k">Recepção</div>
+              <div class="v">
+                A seguir, no mesmo local
+                <small>Coquetel no jardim · jantar e festa no salão.</small>
+              </div>
+            </div>
+            <div class="row">
+              <div class="k">Estacionamento</div>
+              <div class="v">
+                Valet exclusivo
+                <small>Operando das 14h às 03h. Sem custo adicional.</small>
+              </div>
+            </div>
+            <div class="row">
+              <div class="k">Aeroporto</div>
+              <div class="v">
+                GRU · 35 min de carro
+                <small>CGH · 25 min. Indicamos chegar na véspera.</small>
+              </div>
+            </div>
+          </div>
+          <a class="venue-cta" href="https://maps.google.com" target="_blank" rel="noreferrer">
+            Abrir no mapa <span class="arrow">→</span>
           </a>
         </div>
       </div>
@@ -34,10 +59,8 @@
 </template>
 
 <script setup>
-import { wedding } from '@/config/wedding.js'
+import { useReveal } from '@/composables/useReveal.js'
 
-const venues = [
-  { label: 'Cerimônia', ...wedding.venues.ceremony },
-  { label: 'Recepção', ...wedding.venues.reception },
-]
+const headRef = useReveal()
+const venueRef = useReveal()
 </script>

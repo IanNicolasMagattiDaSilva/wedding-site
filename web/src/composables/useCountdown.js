@@ -1,34 +1,48 @@
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 
-export function useCountdown(targetDate) {
-  const days = ref(0)
-  const hours = ref(0)
-  const minutes = ref(0)
-  const seconds = ref(0)
-  let timer = null
-
-  function tick() {
-    const now = Date.now()
-    const diff = new Date(targetDate).getTime() - now
-
-    if (diff <= 0) {
-      days.value = hours.value = minutes.value = seconds.value = 0
-      clearInterval(timer)
-      return
-    }
-
-    days.value = Math.floor(diff / (1000 * 60 * 60 * 24))
-    hours.value = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
-    minutes.value = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
-    seconds.value = Math.floor((diff % (1000 * 60)) / 1000)
-  }
+export function useCountdown(targetISO) {
+  const now = ref(Date.now())
+  let timer
 
   onMounted(() => {
-    tick()
-    timer = setInterval(tick, 1000)
+    timer = setInterval(() => { now.value = Date.now() }, 1000)
   })
 
-  onUnmounted(() => clearInterval(timer))
+  onUnmounted(() => {
+    clearInterval(timer)
+  })
 
-  return { days, hours, minutes, seconds }
+  const pad = (n, w = 2) => String(n).padStart(w, '0')
+
+  const day = computed(() => {
+    const target = new Date(targetISO).getTime()
+    const diff = Math.max(0, target - now.value)
+    return pad(Math.floor(diff / 86400000), 3)
+  })
+
+  const hr = computed(() => {
+    const target = new Date(targetISO).getTime()
+    let diff = Math.max(0, target - now.value)
+    diff -= Math.floor(diff / 86400000) * 86400000
+    return pad(Math.floor(diff / 3600000))
+  })
+
+  const min = computed(() => {
+    const target = new Date(targetISO).getTime()
+    let diff = Math.max(0, target - now.value)
+    diff -= Math.floor(diff / 86400000) * 86400000
+    diff -= Math.floor(diff / 3600000) * 3600000
+    return pad(Math.floor(diff / 60000))
+  })
+
+  const sec = computed(() => {
+    const target = new Date(targetISO).getTime()
+    let diff = Math.max(0, target - now.value)
+    diff -= Math.floor(diff / 86400000) * 86400000
+    diff -= Math.floor(diff / 3600000) * 3600000
+    diff -= Math.floor(diff / 60000) * 60000
+    return pad(Math.floor(diff / 1000))
+  })
+
+  return { day, hr, min, sec }
 }
