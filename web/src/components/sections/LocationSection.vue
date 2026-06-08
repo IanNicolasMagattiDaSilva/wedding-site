@@ -8,6 +8,7 @@
 
       <div class="venue reveal" ref="venueRef">
         <div class="venue-image">
+          <img :src="locationImage" :alt="venueName" />
           <div class="caption">Casa Florença, Jardim Europa</div>
         </div>
         <div class="venue-info">
@@ -60,6 +61,7 @@
 
 <script setup>
 import { useReveal } from '@/composables/useReveal.js'
+import locationImage from '@/assets/Location/exemple-location.jpg'
 
 const headRef = useReveal()
 const venueRef = useReveal()

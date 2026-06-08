@@ -12,8 +12,8 @@
     <GallerySection />
     <LocationSection />
     <FullbleedQuoteSection
-      quote="O resto é tempo. E tempo, a gente já tem combinado."
-      attr="Victoria, num bilhete de cozinha"
+      quote="Assim, eles já não são dois, mas sim uma só carne. Portanto, o que Deus uniu, ninguém o separe."
+      attr="Matheus 19:6"
     />
     <DressCodeSection />
     <GiftsSection />
@@ -38,12 +38,12 @@
 
 <script setup>
 import NavSection from '@/components/NavSection.vue'
-import HeroSection from '@/components/sections/HeroSection.vue'
+import HeroSection from '../components/sections/HeroSection.vue'
 import CountdownSection from '@/components/sections/CountdownSection.vue'
-import OurStorySection from '@/components/sections/OurStorySection.vue'
+import OurStorySection from '../components/sections/OurStorySection.vue'
 import FullbleedQuoteSection from '@/components/sections/FullbleedQuoteSection.vue'
 import TimelineSection from '@/components/sections/TimelineSection.vue'
-import GallerySection from '@/components/sections/GallerySection.vue'
+import GallerySection from '../components/sections/GallerySection.vue'
 import LocationSection from '@/components/sections/LocationSection.vue'
 import DressCodeSection from '@/components/sections/DressCodeSection.vue'
 import GiftsSection from '@/components/sections/GiftsSection.vue'

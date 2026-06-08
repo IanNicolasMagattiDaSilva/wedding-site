@@ -14,6 +14,7 @@
           :class="['g', slot.cls]"
           @click="open = i"
         >
+          <img :src="slot.src" :alt="slot.alt" loading="lazy" />
           <span class="g-num">{{ slot.label }}</span>
         </div>
       </div>
@@ -23,7 +24,12 @@
       <div class="lightbox-stage" @click.stop>
         <button class="lightbox-close" @click="open = -1" aria-label="Fechar">✕</button>
         <button class="lightbox-nav prev" @click="prev" aria-label="Anterior">←</button>
-        <div v-if="open >= 0" class="lightbox-img"></div>
+        <img
+          v-if="open >= 0"
+          class="lightbox-img"
+          :src="slots[open].src"
+          :alt="slots[open].alt"
+        />
         <button class="lightbox-nav next" @click="next" aria-label="Próxima">→</button>
         <div v-if="open >= 0" class="lightbox-count">
           {{ String(open + 1).padStart(2, '0') }} / {{ String(slots.length).padStart(2, '0') }} · {{ slots[open].label }}
@@ -35,20 +41,29 @@
 
 <script setup>
 import { ref, watch, onUnmounted } from 'vue'
-import { useReveal } from '@/composables/useReveal.js'
+import { useReveal } from '../../composables/useReveal'
 
 const headRef = useReveal()
 const galleryRef = useReveal()
 
-const slots = [
-  { id: 'g-1', cls: 'g1', label: '01 · Manhã' },
-  { id: 'g-2', cls: 'g2', label: '02 · Café' },
-  { id: 'g-3', cls: 'g3', label: '03 · Casa' },
-  { id: 'g-4', cls: 'g4', label: '04 · Janela' },
-  { id: 'g-5', cls: 'g5', label: '05 · Caminho' },
-  { id: 'g-6', cls: 'g6', label: '06 · Cidade' },
-  { id: 'g-7', cls: 'g7', label: '07 · Nós' },
-]
+const galleryImages = Object.entries(
+  import.meta.glob('@/assets/Galeria/*.{jpeg,jpg,png,webp}', {
+    eager: true,
+    import: 'default',
+  }),
+).sort(([a], [b]) => a.localeCompare(b))
+
+const slots = galleryImages.map(([path, src], index) => {
+  const number = String(index + 1).padStart(2, '0')
+
+  return {
+    id: `g-${index + 1}`,
+    cls: `g${(index % 7) + 1}`,
+    label: number,
+    src,
+    alt: `Foto ${number} da galeria de Ian e Victoria`,
+  }
+})
 
 const open = ref(-1)
 
