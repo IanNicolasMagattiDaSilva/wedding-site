@@ -200,101 +200,23 @@ img { display: block; max-width: 100%; }
 /* ================================================================
    HERO
    ================================================================ */
-.hero {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+
+/* Entrada escalonada (o delay de cada elemento vai inline via Tailwind) */
+.hero-reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  animation: heroIn 1.4s cubic-bezier(0.2, 0.65, 0.3, 1) forwards;
+}
+
+/* Indicador de scroll: linha em degradê + ponto animado */
+.scroll-line {
   position: relative;
-}
-
-.hero-eyebrow {
-  font-family: var(--font-body);
-  font-size: 12px;
-  font-weight: 400;
-  letter-spacing: 0.42em;
-  text-transform: uppercase;
-  color: var(--ink-muted);
-  margin-bottom: 80px;
-}
-
-.hero-names {
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(72px, 10vw, 156px);
-  line-height: 1;
-  letter-spacing: -0.01em;
-  color: var(--ink);
-}
-
-.hero-names .name {
-  display: block;
-}
-.hero-names .amp {
-  display: block;
-  font-family: var(--font-amp);
-  font-style: italic;
-  font-weight: 300;
-  color: var(--accent);
-  font-size: 0.78em;
-  margin: 0.06em 0 0.04em;
-  letter-spacing: -0.02em;
-}
-
-.hero-divider {
-  width: 56px;
-  height: 1px;
-  background: var(--ink);
-  opacity: 0.55;
-  margin: 56px auto 36px;
-}
-
-.hero-meta-date {
-  font-family: var(--font-body);
-  font-size: 13px;
-  font-weight: 400;
-  letter-spacing: 0.32em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  margin-bottom: 14px;
-}
-
-.hero-meta-place {
-  font-family: var(--font-serif-body);
-  font-weight: 300;
-  font-style: italic;
-  font-size: 18px;
-  color: var(--ink-soft);
-  letter-spacing: 0.04em;
-}
-
-.hero-scroll {
-  position: absolute;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 14px;
-}
-.hero-scroll .word {
-  font-family: var(--font-body);
-  font-size: 10px;
-  letter-spacing: 0.32em;
-  text-transform: uppercase;
-  color: var(--ink-muted);
-}
-.hero-scroll .line {
   width: 1px;
   height: 60px;
-  background: linear-gradient(to bottom, var(--ink-muted), transparent);
-  position: relative;
   overflow: hidden;
+  background: linear-gradient(to bottom, var(--ink-muted), transparent);
 }
-.hero-scroll .line::after {
+.scroll-line::after {
   content: "";
   position: absolute;
   top: 0;
@@ -599,6 +521,14 @@ section.block {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.tl-image-placeholder {
+  border: 1px dashed var(--rule-strong);
+  background-color: var(--bg-soft);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44' viewBox='0 0 24 24' fill='none' stroke='%239a9890' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='3' width='18' height='18' rx='1.5'/%3E%3Ccircle cx='8.5' cy='8.5' r='1.5'/%3E%3Cpath d='m21 15-5-5L5 21'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .tl-item.right .tl-content { grid-column: 1; text-align: right; }
@@ -1274,33 +1204,7 @@ section.block {
 .reveal-stagger.is-in > *:nth-child(4) { transition-delay: 240ms; }
 .reveal-stagger.is-in > *:nth-child(5) { transition-delay: 320ms; }
 
-/* Hero entrance */
-.hero .hero-eyebrow,
-.hero .hero-names .name,
-.hero .hero-names .amp,
-.hero .hero-divider,
-.hero .hero-meta-date,
-.hero .hero-meta-place,
-.hero .hero-scroll {
-  opacity: 0;
-  transform: translateY(14px);
-  animation: heroIn 1.4s cubic-bezier(0.2, 0.65, 0.3, 1) forwards;
-}
-.hero .hero-scroll {
-  transform: translate(-50%, 14px);
-  animation-name: heroScrollIn;
-}
-.hero .hero-eyebrow              { animation-delay: 0.1s; }
-.hero .hero-names .name:first-child { animation-delay: 0.35s; }
-.hero .hero-names .amp           { animation-delay: 0.55s; }
-.hero .hero-names .name:last-child  { animation-delay: 0.75s; }
-.hero .hero-divider              { animation-delay: 1.0s; }
-.hero .hero-meta-date            { animation-delay: 1.15s; }
-.hero .hero-meta-place           { animation-delay: 1.3s; }
-.hero .hero-scroll               { animation-delay: 1.6s; }
+/* Hero entrance (aplicado via utilitários Tailwind em HeroSection.vue) */
 @keyframes heroIn {
   to { opacity: 1; transform: none; }
-}
-@keyframes heroScrollIn {
-  to { opacity: 1; transform: translateX(-50%); }
 }

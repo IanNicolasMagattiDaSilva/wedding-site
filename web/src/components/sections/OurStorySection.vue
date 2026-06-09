@@ -18,7 +18,7 @@
           <div class="eyebrow">Como começou</div>
           <h3>Um <em>encontro</em> que durou anos.</h3>
           <p>
-            A gente se conheceu no inverno de 2020, 
+            Nos conhecemos no inverno de 2020, trocando mensagens durante pandemia, entre conversas e risos, nossa conexão cresceu a cada dia, mesmo à distância. 
           </p>
           <p>
             Vieram as conversas longas, as viagens curtas, os planos sussurrados em cozinhas alheias. Cinco anos depois, decidimos que era hora — e queremos que vocês estejam por perto quando a gente disser sim.

@@ -1,12 +1,17 @@
 <template>
-  <div>
+  <div class="flex flex-col gap-2">
     <NavSection />
     <HeroSection />
     <CountdownSection />
     <OurStorySection />
     <FullbleedQuoteSection
-      quote="Encontrar você foi a coisa mais inesperada — e a mais óbvia."
-      attr="Ian, escrevendo às quatro da manhã"
+      quote="
+        Eu sei que vou te amar.
+        Por toda a minha vida eu vou te amar.
+        Em cada despedida eu vou te amar.
+        Desesperadamente eu sei que vou te amar.
+        "
+      attr="Eu sei que vou te amar — Tom Jobim"
     />
     <TimelineSection />
     <GallerySection />

@@ -12,7 +12,8 @@
           :ref="(el) => setItemRef(el, i)"
           :class="['tl-item reveal', item.side]"
         >
-          <div class="tl-image">
+          <div v-if="item.image == undefined" class="tl-image tl-image-placeholder flex w-100 h-100"/>
+          <div v-else class="tl-image flex">
             <img :src="item.image" :alt="item.alt" />
           </div>
           <div class="tl-dot"></div>
@@ -33,7 +34,6 @@ import { useReveal } from '@/composables/useReveal.js'
 import primeiraViagem from '@/assets/Timeline/parque de curtibia.jpeg'
 import primeiroEncontro from '@/assets/Timeline/WhatsApp Image 2026-05-23 at 19.27.27.jpeg'
 import mudamosJuntos from '@/assets/Timeline/WhatsApp Image 2026-05-23 at 19.27.27 (1).jpeg'
-import pedido from '@/assets/Timeline/WhatsApp Image 2026-05-23 at 19.27.27 (2).jpeg'
 
 const headRef = useReveal()
 const itemRefs = ref([])
@@ -65,10 +65,10 @@ const items = [
   },
   {
     side: 'left',
-    when: 'Agosto · 2026',
+    when: 'Algum mês · 2026',
     title: 'O <em>pedido</em>',
-    text: 'Numa varanda, ao fim da tarde, sem plateia. O sim mais fácil.',
-    image: pedido,
+    text: '? ...',
+    image: undefined,
     alt: 'Foto do pedido',
   },
 ]
