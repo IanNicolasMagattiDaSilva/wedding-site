@@ -511,19 +511,30 @@ section.block {
 
 .tl-image {
   grid-row: 1;
-  aspect-ratio: 4 / 5;
-  overflow: hidden;
-  background: var(--bg-soft);
   position: relative;
-  max-width: 320px;
-}
-.tl-image img {
   width: 100%;
-  height: 100%;
+  max-width: 320px;
+  background: #fffdf8;
+  padding: clamp(10px, 1.2vw, 14px);
+  padding-bottom: clamp(38px, 4vw, 52px);
+  box-shadow:
+    0 2px 6px rgba(35, 34, 32, 0.12),
+    0 18px 40px rgba(35, 34, 32, 0.18);
+  transform: rotate(-1.75deg);
+  transition: transform .35s ease;
+}
+.tl-image:hover { transform: rotate(0deg); }
+.tl-item.left .tl-image { transform: rotate(1.75deg); }
+.tl-item.left .tl-image:hover { transform: rotate(0deg); }
+.tl-image img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
   object-fit: cover;
 }
 
 .tl-image-placeholder {
+  aspect-ratio: 4 / 5;
   border: 1px dashed var(--rule-strong);
   background-color: var(--bg-soft);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44' viewBox='0 0 24 24' fill='none' stroke='%239a9890' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='3' width='18' height='18' rx='1.5'/%3E%3Ccircle cx='8.5' cy='8.5' r='1.5'/%3E%3Cpath d='m21 15-5-5L5 21'/%3E%3C/svg%3E");
@@ -705,22 +716,39 @@ section.block {
 }
 
 .venue-image {
-  aspect-ratio: 5 / 6;
-  overflow: hidden;
-  background: var(--bg-soft);
   position: relative;
+  align-self: center;
+  background: #fffdf8;
+  padding: clamp(14px, 1.6vw, 20px);
+  padding-bottom: clamp(58px, 6vw, 78px);
+  box-shadow:
+    0 2px 6px rgba(35, 34, 32, 0.12),
+    0 18px 40px rgba(35, 34, 32, 0.18);
+  transform: rotate(-1.75deg);
+  transition: transform .35s ease;
+}
+.venue-image:hover { transform: rotate(0deg); }
+.venue-image img {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
 }
 .venue-image .caption {
   position: absolute;
-  bottom: 16px;
-  left: 16px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: clamp(58px, 6vw, 78px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   font-family: var(--font-serif-body);
   font-style: italic;
   font-weight: 300;
-  color: var(--paper);
-  font-size: 16px;
+  color: var(--ink-soft);
+  font-size: 17px;
   letter-spacing: 0.02em;
-  text-shadow: 0 1px 12px rgba(0,0,0,0.35);
 }
 
 .venue-info { padding-top: 8px; }

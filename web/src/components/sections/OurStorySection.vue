@@ -12,11 +12,9 @@
             :src="imagemCasal"
             alt="Foto de Ian e Victoria sorrindo, abraçados, em um parque. Ela tem cabelo curto e veste uma blusa listrada. Ele tem cabelo curto e veste uma camisa azul."
           />
-          <div class="frame-num">FIG. 01 — 2020</div>
         </div>
         <div class="story-text">
-          <div class="eyebrow">Como começou</div>
-          <h3>Um <em>encontro</em> que durou anos.</h3>
+          <h3>Como <em>começou</em></h3>
           <p>
             Nos conhecemos no inverno de 2020, trocando mensagens durante pandemia, entre conversas e risos, nossa conexão cresceu a cada dia, mesmo à distância. 
           </p>
@@ -32,7 +30,7 @@
 
 <script setup>
 import { useReveal } from '@/composables/useReveal.js'
-import imagemCasal from '../../assets/Timeline/parque de curtibia.jpeg'
+import imagemCasal from '../../assets/Timeline/primeira viagem.jpeg'
 
 const headRef = useReveal()
 const storyRef = useReveal()

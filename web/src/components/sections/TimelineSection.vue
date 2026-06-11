@@ -12,13 +12,12 @@
           :ref="(el) => setItemRef(el, i)"
           :class="['tl-item reveal', item.side]"
         >
-          <div v-if="item.image == undefined" class="tl-image tl-image-placeholder flex w-100 h-100"/>
-          <div v-else class="tl-image flex">
-            <img :src="item.image" :alt="item.alt" />
+          <div class="tl-image">
+            <img v-if="item.image" :src="item.image" :alt="item.alt" />
+            <div v-else class="tl-image-placeholder"></div>
           </div>
           <div class="tl-dot"></div>
           <div class="tl-content">
-            <div class="when">{{ item.when }}</div>
             <h4 v-html="item.title"></h4>
             <p>{{ item.text }}</p>
           </div>
@@ -31,9 +30,9 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useReveal } from '@/composables/useReveal.js'
-import primeiraViagem from '@/assets/Timeline/parque de curtibia.jpeg'
-import primeiroEncontro from '@/assets/Timeline/WhatsApp Image 2026-05-23 at 19.27.27.jpeg'
-import mudamosJuntos from '@/assets/Timeline/WhatsApp Image 2026-05-23 at 19.27.27 (1).jpeg'
+import primeiraViagem from '@/assets/Timeline/primeira viagem.jpeg'
+import primeiroEncontro from '@/assets/Timeline/primeiro encontro.jpeg'
+import pedidoDeNamoro from '@/assets/Timeline/pedido de namoro.jpeg'
 
 const headRef = useReveal()
 const itemRefs = ref([])
@@ -41,7 +40,6 @@ const itemRefs = ref([])
 const items = [
   {
     side: 'right',
-    when: 'Julho · 2020',
     title: 'O primeiro <em>encontro</em>',
     text: 'Depois de meses conversando, tivemos nosso primeiro encontro.',
     image: primeiroEncontro,
@@ -49,23 +47,20 @@ const items = [
   },
   {
     side: 'left',
-    when: 'Dezembro · 2023',
+    title: '<em>Pedido</em> de namoro',
+    text: 'E conhecendo a Victoria, não demorou muito para que eu percebesse que queria estar com ela. Então, em um dia especial, fiz o pedido de namoro.',
+    image: pedidoDeNamoro,
+    alt: 'Foto do pedido de namoro',
+  },
+  {
+    side: 'right',
     title: 'A primeira <em>viagem</em>',
     text: 'Em 2023, fomos para Curitiba, a cidade em que a Victoria morou por um tempo. Foi a primeira viagem que fizemos juntos.',
     image: primeiraViagem,
     alt: 'Foto da primeira viagem',
   },
   {
-    side: 'right',
-    when: 'Março · 2025',
-    title: '<em>Mudamos</em> juntos',
-    text: '',
-    image: mudamosJuntos,
-    alt: 'Foto de quando mudaram juntos',
-  },
-  {
     side: 'left',
-    when: 'Algum mês · 2026',
     title: 'O <em>pedido</em>',
     text: '? ...',
     image: undefined,

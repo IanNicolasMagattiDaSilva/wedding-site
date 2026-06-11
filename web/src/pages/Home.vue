@@ -35,7 +35,7 @@
       </div>
       <div class="foot-bottom">
         <span>Com carinho — N° 001</span>
-        <span>ianevictoria@email.com</span>
+        <span>nicolas.magatti@gmail.com</span>
       </div>
     </footer>
   </div>
